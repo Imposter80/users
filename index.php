@@ -101,10 +101,10 @@ if ( isset($_POST['exit_user']) )
                 <h3>Пожалуйста заполните поля</h3>
                 <hr>
                 <label for="email"><b>Email</b></label>
-                <input type="text" placeholder="Enter Email" name="log_email" required>
+                <input type="text" placeholder="📬 - Enter Email" name="log_email" required>
 
                 <label for="psw"><b>Password</b></label>
-                <input type="password" placeholder="Enter Password" name="log_password" required>
+                <input type="password" placeholder="🔏 - Enter Password" name="log_password" required>
                 <hr>
 
 
