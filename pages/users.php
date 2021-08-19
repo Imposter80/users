@@ -156,7 +156,7 @@ if ( isset($_GET['delete_card_users']) )
 
                             <td><?= $user->getId(); ?></td>
                             <td><?= $user->getIs_admin(); ?></td>
-                            <td><?= $user->getFirstname(); ?></td>
+                            <td><?= $user->getFirstname(). ' ' . ($user->getID() == $_SESSION['user']['id']? '🤪' : ''); ?></td>
                             <td><?= $user->getLastname(); ?></td>
                             <td><?= $user->getEmail(); ?></td>
                             <td><?= $user->getBirthday(); ?></td>
