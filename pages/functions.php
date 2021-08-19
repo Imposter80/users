@@ -2,6 +2,84 @@
 <?php
 include_once('class.php');
 
+// --------------------------- DISPLAYING LINKS FOR SORTING --------------------------------------
+
+function sortLinkUsers($title, $a, $b) {
+    $sort = @$_GET['sort'];     //@$_GET - исключение ошибки если ключ не существует в $_GET
+
+    if ($sort == $a) {
+        return '<a  href="?sort=' . $b . '">' . $title . ' <i>👆</i></a>';
+    } elseif ($sort == $b) {
+        return '<a  href="?sort=' . $a . '">' . $title . ' <i>☟</i></a>';
+    } else {
+        return '<a href="?sort=' . $a . '">' . $title . '</a>';
+    }
+}
+
+
+// --------------------------- SORTING USER --------------------------------------
+
+
+
+function sortingUsers($sort, &$users)
+{
+    switch ($sort) {
+        case "id_asc":
+            usort($users, function($a, $b) {
+                return ($a->getID() == $b->getID() ? 0 : $a->getID() - $b->getID());
+            });
+            break;
+        case "id_desc":
+            usort($users, function($a, $b) {
+                return  ($a->getID() == $b->getID() ? 0 : $b->getID() - $a->getID());
+            });
+            break;
+        case "firstname_asc":
+            usort($users, function($a, $b) {return strcmp($a->getFirstname(), $b->getFirstname());});
+            break;
+        case "firstname_desc":
+            usort($users, function($a, $b) {return strcmp($b->getFirstname(), $a->getFirstname());});
+            break;
+        case "lastname_asc":
+            usort($users, function($a, $b) {return strcmp($a->getLastname(), $b->getLastname());});
+            break;
+        case "lastname_desc":
+            usort($users, function($a, $b) {return strcmp($b->getLastname(), $a->getLastname());});
+            break;
+        case "email_asc":
+            usort($users, function($a, $b) {return strcmp($a->getEmail(), $b->getEmail());});
+            break;
+        case "email_desc":
+            usort($users, function($a, $b) {return strcmp($b->getEmail(), $a->getEmail());});
+            break;
+    }
+
+
+
+    /* if(isset($_GET['sorting_user_id']))
+     {
+         usort($users, function($a, $b) {
+             (return $a->getID() == $b->getID() ? 0 : $a->getID() - $b->getID());
+         });
+     }
+
+     if(isset($_GET['sorting_user_first_name'] ))
+     {
+         usort($users, function($a, $b) {return strcmp($a->getFirstname(), $b->getFirstname());});
+     }
+
+     if(isset($_GET['sorting_user_last_name']))
+     {
+         usort($users, function($a, $b) {return strcmp($a->getLastname(), $b->getLastname());});
+     }
+
+     if(isset($_GET['sorting_user_email']))
+     {
+         usort($users, function($a, $b) {return strcmp($a->getEmail(), $b->getEmail());});
+     }*/
+    return $users;
+}
+
 
 
 // --------------------------- ADD USER ---------------------------
@@ -78,83 +156,8 @@ include_once('class.php');
         return $tmp_users;*/
 
     }
-// --------------------------- DISPLAYING LINKS FOR SORTING --------------------------------------
-
-     function sortLinkUsers($title, $a, $b) {
-         $sort = @$_GET['sort'];     //@$_GET - исключение ошибки если ключ не существует в $_GET
-
-        if ($sort == $a) {
-            return '<a  href="?sort=' . $b . '">' . $title . ' <i>▲</i></a>';
-        } elseif ($sort == $b) {
-            return '<a  href="?sort=' . $a . '">' . $title . ' <i>▼</i></a>';
-        } else {
-           return '<a href="?sort=' . $a . '">' . $title . '</a>';
-        }
-     }
 
 
-// --------------------------- SORTING USER --------------------------------------
-
-
-
-    function sortingUsers($sort, &$users)
-    {
-        switch ($sort) {
-            case "id_asc":
-                usort($users, function($a, $b) {
-                    return ($a->getID() == $b->getID() ? 0 : $a->getID() - $b->getID());
-                });
-                break;
-            case "id_desc":
-                usort($users, function($a, $b) {
-                    return  ($a->getID() == $b->getID() ? 0 : $b->getID() - $a->getID());
-                });
-                break;
-            case "firstname_asc":
-                usort($users, function($a, $b) {return strcmp($a->getFirstname(), $b->getFirstname());});
-                break;
-            case "firstname_desc":
-                usort($users, function($a, $b) {return strcmp($b->getFirstname(), $a->getFirstname());});
-                break;
-            case "lastname_asc":
-                usort($users, function($a, $b) {return strcmp($a->getLastname(), $b->getLastname());});
-                break;
-            case "lastname_desc":
-                usort($users, function($a, $b) {return strcmp($b->getLastname(), $a->getLastname());});
-                break;
-            case "email_asc":
-                usort($users, function($a, $b) {return strcmp($a->getEmail(), $b->getEmail());});
-                break;
-            case "email_desc":
-                usort($users, function($a, $b) {return strcmp($b->getEmail(), $a->getEmail());});
-                break;
-        }
-
-
-
-        /* if(isset($_GET['sorting_user_id']))
-         {
-             usort($users, function($a, $b) {
-                 (return $a->getID() == $b->getID() ? 0 : $a->getID() - $b->getID());
-             });
-         }
-
-         if(isset($_GET['sorting_user_first_name'] ))
-         {
-             usort($users, function($a, $b) {return strcmp($a->getFirstname(), $b->getFirstname());});
-         }
-
-         if(isset($_GET['sorting_user_last_name']))
-         {
-             usort($users, function($a, $b) {return strcmp($a->getLastname(), $b->getLastname());});
-         }
-
-         if(isset($_GET['sorting_user_email']))
-         {
-             usort($users, function($a, $b) {return strcmp($a->getEmail(), $b->getEmail());});
-         }*/
-         return $users;
-    }
 
 
 // --------------------------- EDIT USER -------------------------
